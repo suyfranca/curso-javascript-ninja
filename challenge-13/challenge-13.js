@@ -140,14 +140,15 @@
   */
   console.log( '\nTodos os estados de `brasil` tem mais de 7 letras?' );
 
-  let every = brasil.every( function(item){
-    return item.length > 7
-  });
+ let every = brasil.every( function(item) {
+  return item.length > 7;
+});
 
-  console.log(
-    every ? 
-    "Sim, todos os estados tem mais de 7 letras!" : 
-    "Nem todos os estados tem mais de 7 letras!");
+console.log( 
+  every  
+  ? console.log("Sim, todos os estados tem mais de 7 letras!") 
+  : console.log("Nem todos os estados tem mais de 7 letras!")
+);
  
   /*
   Percorra o array `brasil` e verifique se o Ceará está incluído, atribuindo o
