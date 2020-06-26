@@ -11,7 +11,7 @@ cada segundo;
 6. Ao clicar em Reset, o cronômetro deve zerar e parar de contar.
 
 Utilize o atributo data-js para nomear o campo e os botões. Você pode
-usar o nome que achar melhor, desde que ele seja semântico, ou seja, o nome
+usar o nome que achar melhor, desde que ele sej a semântico, ou seja, o nome
 dado ao elemento HTML deve definir o que o elemento é ou o que ele faz.
 */
 
