@@ -19,14 +19,14 @@ dado ao elemento HTML deve definir o que o elemento é ou o que ele faz.
 (function( window, document ){
   'use script';
 
-  let $inputTimer = document.querySelector( 'input[data-js="inputTimer"]' );
-  let $startBtn = document.querySelector( 'button[data-js="startBtn"]' );
-  let $stopBtn = document.querySelector( 'button[data-js="stopBtn"]' );
-  let $resetBtn = document.querySelector( 'button[data-js="resetBtn"]' );
+  let $inputTimer = document.querySelector( '[data-js="inputTimer"]' );
+  let $startBtn = document.querySelector( '[data-js="startBtn"]' );
+  let $stopBtn = document.querySelector( '[data-js="stopBtn"]' );
+  let $resetBtn = document.querySelector( '[data-js="resetBtn"]' );
   let temporizador;
 
   function timer(){
-    $inputTimer.value++;
+    +$inputTimer.value++;
     temporizador = setTimeout( timer, 1000);
   }
 
@@ -35,8 +35,8 @@ dado ao elemento HTML deve definir o que o elemento é ou o que ele faz.
   }
 
   function resetTimer(){
-    clearTimeout(temporizador);
     $inputTimer.value = 0;
+    stopTimer();
   }
 
   $startBtn.addEventListener( 'click', timer, false );
