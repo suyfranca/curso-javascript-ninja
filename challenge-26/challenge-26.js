@@ -22,39 +22,36 @@
   Só passe para o próximo problema quando tiver resolvido o anterior :)
   */
 
-  function DOM( param ){
-    this.element = document.querySelectorAll( param );
-  }
+ function DOM( param ){
+  this.element = document.querySelectorAll( param );
+}
 
-  DOM.prototype.on = function on( action , callback ){
-    Array.prototype.forEach.call(this.element, function(e){
-      e.addEventListener( action, callback, false );
-    });
-  }
-
-  DOM.prototype.off = function off( action , callback ){
-    Array.prototype.forEach.call( this.element, function(e){
-      e.removeEventListener( action, callback, false );
-    })
-  };
-
-  DOM.prototype.get = function get( action , callback ){
-    return this.element;
-  };
-
-
-  var $a = new DOM('[data-js="link"]');
-  console.log($a)
-  $a.on('click', function handleClick(e) {
-    e.preventDefault();
-    console.log('clicou');
-    $a.off('click', handleClick)
+DOM.prototype.on = function on( action , callback ){
+  Array.prototype.forEach.call(this.element, function(e){
+    e.addEventListener( action, callback, false );
   });
+}
 
-  console.log('Elementos selecionados:', $a.get());
-  console.log('$a é filho de body?', $a.get()[0].parentNode === document.body);
-  $a.off();
-  console.log($a.get())
+DOM.prototype.off = function off( action , callback ){
+  Array.prototype.forEach.call( this.element, function(e){
+    e.removeEventListener( action, callback, false );
+  })
+};
 
+DOM.prototype.get = function get( action , callback ){
+  return this.element;
+};
+
+
+var $a = new DOM('[data-js="link"]');
+$a.on('click', function handleClick(e) {
+  e.preventDefault();
+  console.log('clicou');
+  $a.off('click', handleClick)
+});
+
+console.log('Elementos selecionados:', $a.get());
+console.log('$a é filho de body?', $a.get()[0].parentNode === document.body);
+$a.off();
 
 })();
