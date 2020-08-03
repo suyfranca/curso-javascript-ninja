@@ -1,25 +1,88 @@
-/*
-Vamos desenvolver mais um projeto. A ideia é fazer uma mini-calculadora.
-As regras são:
+(function (document, window) {
+  'use strict;'
+  
+  let $sumBtn = document.querySelector('[data-js="sum"]');
+  let $subBtn = document.querySelector('[data-js="sub"]');
+  let $multBtn = document.querySelector('[data-js="mult"]');
+  let $divBtn = document.querySelector('[data-js="div"]');
+  let $equalBtn = document.querySelector('[data-js="equal"]');
+  let $ceBtn = document.querySelector('[data-js="ce"]');
 
-- Deve ter somente 1 input, mas não deve ser possível entrar dados nesse input
-diretamente;
-- O input deve iniciar com valor zero;
-- Deve haver 10 botões para os números de 0 a 9. Cada botão deve ser um número;
-- Deve haver 4 botões para as operações principais: soma (+), subtração(-),
-multiplicação(x) e divisão(÷);
-- Deve haver um botão de "igual" (=) que irá calcular os valores e um botão "CE"
-que irá limpar o input, deixando-o com valor 0;
+  let $outputCalc = document.querySelector('[data-js="outputCalc"]');
+  
+  let $buttonsNumber = document.querySelectorAll( '[data-js="buttonNumber"]' );
+  Array.prototype.forEach.call( $buttonsNumber, function( button ){
+    button.addEventListener('click', outputCalc, false);
+  });
+  
+  $sumBtn.addEventListener('click', operator, false);
+  $subBtn.addEventListener('click', operator, false);
+  $multBtn.addEventListener('click', operator, false);
+  $divBtn.addEventListener('click', operator, false);
 
-- A cada número pressionado, o input deve atualizar concatenando cada valor
-digitado, como em uma calculadora real;
-- Ao pressionar um botão com uma das 4 operações, deve aparecer o símbolo da
-operação no input. Se o último caractere no input já for um símbolo de alguma
-operação, esse caractere deve ser substituído pelo último pressionado.
-Exemplo:
-- Se o input tem os valores: "1+2+", e for pressionado o botão de
-multiplicação (x), então no input deve aparecer "1+2x".
-- Ao pressionar o botão de igual, o resultado do cálculo deve ser mostrado no
-input;
-- Ao pressionar o botão "CE", o input deve ficar zerado.
-*/
+  $ceBtn.addEventListener('click', cleanCalc, false);
+
+  $equalBtn.addEventListener('click', result, false);
+
+  function outputCalc(event) {
+    if ($outputCalc.value === "0") {
+      $outputCalc.value = "";
+    }
+    $outputCalc.value = $outputCalc.value + this.value;
+    return $outputCalc.value;
+  }
+
+  function cleanCalc() {
+    $outputCalc.value = 0;
+  }
+
+  function operator() {
+    removeLastItemIfItIsAnOperator();
+    $outputCalc.value += this.value;
+  }
+
+  function removeLastItemIfItIsAnOperator(){
+    if (isLastItemIsEqual()){
+      $outputCalc.value = $outputCalc.value.slice(0, -1);
+    }
+  }
+
+  function isLastItemIsEqual(){
+    let operations = ['+', '-', '*', '/'];
+    let lastItem = $outputCalc.value.split('').pop();
+    return operations.some(function(operator){
+      return operator === lastItem;
+    });
+  }
+
+  function result() {
+    removeLastItemIfItIsAnOperator();
+    let op = $outputCalc.value.match(/[\+\/\*-]/g);
+    let calc = $outputCalc.value.split(/[\+\/\*-]/g);
+
+    switch (op[0]){
+      case '+':
+        $outputCalc.value = calc.reduce(function (acc, actual) {
+          return +acc + +actual;
+        });
+        return $outputCalc.value;
+      case '-':
+        $outputCalc.value = calc.reduce(function (acc, actual) {
+          return +acc - +actual;
+        });
+        return $outputCalc.value;
+      case '*':
+        $outputCalc.value = calc.reduce(function (acc, actual) {
+          return +acc * +actual;
+        });
+        return $outputCalc.value;
+      case '/':
+        $outputCalc.value = calc.reduce(function (acc, actual) {
+          return +acc / +actual;
+        });
+        return $outputCalc.value;
+
+    }
+  } 
+
+})(document, window);
